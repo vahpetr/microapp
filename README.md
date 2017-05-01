@@ -8,6 +8,10 @@ Used technologies:
 
 * Cloud - Amazon [EC2](https://aws.amazon.com/ec2/)
 * Container - [Docker](https://www.docker.com/)
+* Load Balancers:
+
+    1. Internal - [Docker Swarm](https://docs.docker.com/engine/swarm)
+
 * Backend - Java [Spring](https://spring.io/)
 * Database - Amazon [DynamoDB](https://aws.amazon.com/dynamodb/)
 

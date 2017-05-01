@@ -7,7 +7,7 @@ echo "Up cluster begin"
 
 # constants
 SWARM_MASTER_IP=192.168.65.2
-WORKER_COUNT=1
+WORKER_COUNT=2
 REGISTRY="registry.local"
 SWARM_MASTER_PORT=2377
 REGISTRY_PORT=5000
@@ -47,8 +47,8 @@ for i in $(seq $WORKER_COUNT); do
 
   # https://docs.docker.com/swarm/plan-for-production/#network-access-control
   echo "Starting dind swarm worker-$i"
-  docker run -d --privileged --restart=always --name worker-1 -h worker-1 \
-    -p 12375:2375 \
+  docker run -d --privileged --restart=always --name worker-${i} -h worker-${i} \
+    -p ${i}2375:2375 \
     docker:17.04.0-ce-dind \
     --storage-driver=overlay2 \
     --insecure-registry=$REGISTRY:$REGISTRY_PORT \
@@ -58,7 +58,7 @@ for i in $(seq $WORKER_COUNT); do
   sleep 1.0e-1
 
   echo "Join dind swarm worker-$i to swarm master"
-  docker --host=localhost:12375 swarm join --token $SWARM_TOKEN $SWARM_MASTER_IP:$SWARM_MASTER_PORT
+  docker --host=localhost:${i}2375 swarm join --token $SWARM_TOKEN $SWARM_MASTER_IP:$SWARM_MASTER_PORT
 
 done
 

@@ -4,7 +4,7 @@ echo "Down claster begin"
 
 # constants
 SWARM_MASTER_IP=192.168.65.2
-WORKER_COUNT=1
+WORKER_COUNT=2
 REGISTRY="registry.local"
 
 echo "Removing swarm worker"
