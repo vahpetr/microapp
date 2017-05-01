@@ -6,6 +6,9 @@ echo "Build begin"
 
 cd $EXEC_DIR
 
+echo "Cleaning target folder"
+mvn clean
+
 echo "Building"
 mvn package
 
