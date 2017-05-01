@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+
+  geolocation:
+    image: registry.local:5000/geolocation
+    ports:
+      - 80:8080
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 60s
