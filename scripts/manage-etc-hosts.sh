@@ -22,7 +22,9 @@ addhost() {
 
             if [ -n "$(grep $HOSTNAME /etc/hosts)" ]
                 then
+                    echo "Force renew dns"
                     dscacheutil -flushcache
+
                     echo "$HOSTNAME was added succesfully \n $(grep $HOSTNAME /etc/hosts)";
                 else
                     echo "Failed to Add $HOSTNAME, Try again!";
@@ -36,6 +38,8 @@ removehost() {
     then
         echo "$HOSTNAME Found in your $ETC_HOSTS, Removing now...";
         sudo sed -i".bak" "/$HOSTNAME/d" $ETC_HOSTS
+
+        echo "Force renew dns"
         dscacheutil -flushcache
     else
         echo "$HOSTNAME was not found in your $ETC_HOSTS";
