@@ -6,8 +6,7 @@ echo "Build begin"
 
 cd $EXEC_DIR
 
-mvn dependency:resolve
-mvn verify
+echo "Building"
 mvn package
 
 # back to script directory

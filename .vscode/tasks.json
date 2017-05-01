@@ -1,21 +1,32 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "0.1.0",
-    "command": "mvn",
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "0.1.0",
+  "osx": {
+    "command": "sh",
+    "args": [
+      "-c"
+    ],
+    "options": {
+      "cwd": "${workspaceRoot}"
+    },
     "isShellCommand": true,
-    "showOutput": "always",
     "suppressTaskName": true,
     "tasks": [
-        {
-            "taskName": "verify",
-            "args": ["-B", "verify"],
-            "isBuildCommand": true
-        },
-        {
-            "taskName": "test",
-            "args": ["-B", "test"],
-            "isTestCommand": true
-        }
+      {
+        "taskName": "build",
+        "args": [
+          "${workspaceRoot}/scripts/dev/build.sh"
+        ],
+        "isBuildCommand": true
+      },
+      {
+        "taskName": "test",
+        "args": [
+          "${workspaceRoot}/scripts/dev/test.sh"
+        ],
+        "isTestCommand": true
+      }
     ]
+  }
 }

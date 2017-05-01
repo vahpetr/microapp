@@ -5,6 +5,9 @@ set -e
 
 echo "Up app begin"
 
+echo "Up app test"
+sh scripts/dev/test.sh
+
 echo "Up app build"
 sh scripts/dev/build.sh
 
