@@ -23,7 +23,8 @@ Used technologies:
 
 ### [Amazon](https://aws.amazon.com)
 
-* [Java sdk](https://github.com/aws/aws-sdk-java)
+* [Java sdk](https://aws.amazon.com/sdk-for-java)
+* [Java sdk sources](https://github.com/aws/aws-sdk-java)
 * [Java samples](https://github.com/aws/aws-sdk-java/tree/master/src/samples)
 * [Java DynamoDB sample](https://github.com/aws/aws-sdk-java/tree/master/src/samples/AmazonDynamoDB)
 
@@ -31,3 +32,9 @@ Used technologies:
 
 * [Docs](https://docs.docker.com)
 * [Configuration external load balancer](https://docs.docker.com/engine/swarm/ingress/#configure-an-external-load-balancer)
+
+### Spring
+
+* [Spring simple guide](https://ru.wikibooks.org/wiki/Spring_Framework_Guide)
+* [Spring guid](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/index.html)
+* [Spring guid mvc](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)
