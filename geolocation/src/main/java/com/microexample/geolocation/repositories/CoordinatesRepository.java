@@ -63,7 +63,7 @@ public class CoordinatesRepository implements ICoordinatesRepository {
 
         CreateTableRequest createTableRequest = new CreateTableRequest().withTableName(tableName);
 
-        // TODO add tabla shema
+        // TODO add table shema
 
         TableUtils.createTableIfNotExists(_amazonDynamoDB, createTableRequest);
         TableUtils.waitUntilActive(_amazonDynamoDB, tableName);
