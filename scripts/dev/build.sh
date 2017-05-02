@@ -10,7 +10,7 @@ echo "Cleaning target folder"
 mvn clean
 
 echo "Building"
-mvn package
+mvn package -Dmaven.test.skip=true
 
 # back to script directory
 cd -

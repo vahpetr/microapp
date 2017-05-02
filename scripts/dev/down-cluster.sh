@@ -19,9 +19,11 @@ done
 
 echo "Removing swarm registry"
 docker rm registry -f
+
 # save host forever
 # echo "Clean host"
 # sh scripts/manage-etc-hosts.sh removehost $REGISTRY $SWARM_MASTER_IP
+
 echo "Swarm registry removed"
 
 echo "Removing swarm visualizer"
