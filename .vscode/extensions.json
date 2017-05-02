@@ -1,6 +1,10 @@
 {
     "recommendations": [
         "redhat.java",
-        "donjayamanne.javadebugger"
+        "donjayamanne.javadebugger",
+        "donjayamanne.githistory",
+        "robertohuertasm.vscode-icons",
+        "EditorConfig.EditorConfig",
+        "DavidAnson.vscode-markdownlint"
     ]
 }
