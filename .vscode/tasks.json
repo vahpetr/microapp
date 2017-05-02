@@ -21,11 +21,77 @@
                 "isBuildCommand": true
             },
             {
+                "taskName": "deploy",
+                "args": [
+                    "${workspaceRoot}/scripts/dev/deploy.sh"
+                ]
+            },
+            {
+                "taskName": "down-app",
+                "args": [
+                    "${workspaceRoot}/scripts/dev/down-app.sh"
+                ]
+            },
+            {
+                "taskName": "down-cluster",
+                "args": [
+                    "${workspaceRoot}/scripts/dev/down-cluster.sh"
+                ]
+            },
+            {
+                "taskName": "down",
+                "args": [
+                    "${workspaceRoot}/scripts/dev/down.sh"
+                ]
+            },
+            {
+                "taskName": "publish",
+                "args": [
+                    "${workspaceRoot}/scripts/dev/publish.sh"
+                ]
+            },
+            {
+                "taskName": "renew-app",
+                "args": [
+                    "${workspaceRoot}/scripts/dev/renew-app.sh"
+                ]
+            },
+            {
+                "taskName": "renew-cluster",
+                "args": [
+                    "${workspaceRoot}/scripts/dev/renew-cluster.sh"
+                ]
+            },
+            {
+                "taskName": "run",
+                "args": [
+                    "${workspaceRoot}/scripts/dev/run.sh"
+                ]
+            },
+            {
                 "taskName": "test",
                 "args": [
                     "${workspaceRoot}/scripts/dev/test.sh"
                 ],
                 "isTestCommand": true
+            },
+            {
+                "taskName": "up-app",
+                "args": [
+                    "${workspaceRoot}/scripts/dev/up-app.sh"
+                ]
+            },
+            {
+                "taskName": "up-cluster",
+                "args": [
+                    "${workspaceRoot}/scripts/dev/up-cluster.sh"
+                ]
+            },
+            {
+                "taskName": "up",
+                "args": [
+                    "${workspaceRoot}/scripts/dev/up.sh"
+                ]
             }
         ]
     }
