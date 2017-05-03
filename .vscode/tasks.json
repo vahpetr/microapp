@@ -92,6 +92,18 @@
                 "args": [
                     "${workspaceRoot}/scripts/dev/up.sh"
                 ]
+            },
+            {
+                "taskName": "run-geolocation",
+                "args": [
+                    "cd geolocation && mvn spring-boot:run"
+                ]
+            },
+            {
+                "taskName": "run-dynamodb",
+                "args": [
+                    "mvn test -Prun-dynamodb"
+                ]
             }
         ]
     }
