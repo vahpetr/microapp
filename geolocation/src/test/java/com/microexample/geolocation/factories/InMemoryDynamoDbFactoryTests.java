@@ -39,8 +39,8 @@ public class InMemoryDynamoDbFactoryTests {
             assertEquals("[{AttributeName: " + hashKeyName + ",KeyType: HASH}]", tableDesc.getKeySchema().toString());
             assertEquals("[{AttributeName: " + hashKeyName + ",AttributeType: S}]",
                     tableDesc.getAttributeDefinitions().toString());
-            assertEquals(Long.valueOf(1000L), tableDesc.getProvisionedThroughput().getReadCapacityUnits());
-            assertEquals(Long.valueOf(1000L), tableDesc.getProvisionedThroughput().getWriteCapacityUnits());
+            assertEquals(Long.valueOf(1L), tableDesc.getProvisionedThroughput().getReadCapacityUnits());
+            assertEquals(Long.valueOf(1L), tableDesc.getProvisionedThroughput().getWriteCapacityUnits());
             assertEquals("ACTIVE", tableDesc.getTableStatus());
             assertEquals("arn:aws:dynamodb:ddblocal:000000000000:table/Movies", tableDesc.getTableArn());
 
