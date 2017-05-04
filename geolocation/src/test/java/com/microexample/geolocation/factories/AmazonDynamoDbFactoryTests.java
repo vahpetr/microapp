@@ -19,18 +19,28 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.*;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.model.*;
+import com.amazonaws.services.dynamodbv2.util.TableUtils;
+import com.amazonaws.services.dynamodbv2.util.TableUtils.TableNeverTransitionedToStateException;
 
-public class InMemoryDynamoDbFactoryTests {
+public class AmazonDynamoDbFactoryTests {
 
-    @Test
+
+    @Test(timeout = 1000 * 60)
     public void createTableTest() {
-        AmazonDynamoDB ddb = new InMemoryDynamoDbFactory().create();
+        String tableName = "Movies";
+        AmazonDynamoDB ddb = null;
         try {
-            String tableName = "Movies";
+            ddb = new AmazonDynamoDbFactory().create();
+
+            DeleteTableRequest deleteTableRequest = new DeleteTableRequest(tableName);
+            boolean deleting = TableUtils.deleteTableIfExists(ddb, deleteTableRequest);
+
+            if(deleting) return;
+
             String hashKeyName = "film_id";
             CreateTableResult res = createTable(ddb, tableName, hashKeyName);
 
@@ -46,6 +56,14 @@ public class InMemoryDynamoDbFactoryTests {
 
             ListTablesResult tables = ddb.listTables();
             assertEquals(1, tables.getTableNames().size());
+
+            try {
+                TableUtils.waitUntilExists(ddb, tableName);
+            } catch (InterruptedException ex) {
+                Assert.fail(ex.getMessage());
+            } catch (TableNeverTransitionedToStateException ex) {
+                Assert.fail(ex.getMessage());
+            }
         } finally {
             ddb.shutdown();
         }
@@ -64,6 +82,14 @@ public class InMemoryDynamoDbFactoryTests {
                 .withAttributeDefinitions(attributeDefinitions).withKeySchema(ks)
                 .withProvisionedThroughput(provisionedthroughput);
 
-        return ddb.createTable(request);
+        CreateTableResult result = null;
+
+        try {
+            result = ddb.createTable(request);
+        } catch (final ResourceInUseException ex) {
+            // table exsist, is noraml
+        }
+
+        return result;
     }
 }
