@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.microexample.geolocation.contracts.ICoordinatesService;
-import com.microexample.geolocation.models.Coordinate;
+import com.microexample.geolocation.models.dto.CoordinateDto;;
 
 @Controller
 @RequestMapping("/coordinates")
@@ -23,7 +23,7 @@ public class CoordinatesController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public @ResponseBody void post(@Valid @RequestBody Coordinate coordinate) {
+    public @ResponseBody void post(@Valid @RequestBody CoordinateDto coordinate) {
         _coordinatesService.save(coordinate);
     }
 }
