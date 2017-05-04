@@ -22,15 +22,13 @@ import java.util.List;
 import org.junit.Test;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded;
 import com.amazonaws.services.dynamodbv2.model.*;
 
 public class InMemoryDynamoDbFactoryTests {
 
     @Test
     public void createTableTest() {
-        AmazonDynamoDB ddb = DynamoDBEmbedded.create().amazonDynamoDB();
-        // AmazonDynamoDB ddb = new AmazonDynamoDbFactory().create();
+        AmazonDynamoDB ddb = new InMemoryDynamoDbFactory().create();
         try {
             String tableName = "Movies";
             String hashKeyName = "film_id";

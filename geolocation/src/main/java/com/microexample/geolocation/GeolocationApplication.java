@@ -2,17 +2,13 @@ package com.microexample.geolocation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.microexample.geolocation.contracts.ICoordinatesRepository;
-import com.microexample.geolocation.contracts.ICoordinatesService;
-import com.microexample.geolocation.contracts.IFactory;
-import com.microexample.geolocation.factories.InMemoryDynamoDbFactory;
-import com.microexample.geolocation.repositories.CoordinatesRepository;
-import com.microexample.geolocation.services.CoordinatesService;
+import com.amazonaws.services.dynamodbv2.*;
+import com.microexample.geolocation.contracts.*;
+import com.microexample.geolocation.factories.*;
+import com.microexample.geolocation.repositories.*;
+import com.microexample.geolocation.services.*;
 
 @SpringBootApplication
 @Configuration
@@ -23,7 +19,7 @@ public class GeolocationApplication {
 
     // usealy api use "request" Scope
 
-    @Bean
+    @Bean(destroyMethod="dispose")
     @Scope("singleton")
     public ICoordinatesService coordinatesService() {
         ICoordinatesRepository coordinatesRepository = coordinatesRepository();
@@ -40,16 +36,9 @@ public class GeolocationApplication {
     @Bean(destroyMethod="shutdown")
     @Scope("singleton")
     public AmazonDynamoDB amazonDynamoDB() {
-        IFactory<AmazonDynamoDB> dbContextFactory = dbContextFactory();
+        IFactory<AmazonDynamoDB> dbContextFactory = new AmazonDynamoDbFactory();
         AmazonDynamoDB dbContext = dbContextFactory.create();
         return dbContext;
     }
 
-    @Bean
-    @Scope("singleton")
-    public IFactory<AmazonDynamoDB> dbContextFactory() {
-        // IFactory<AmazonDynamoDB> dbContextFactory = new DynamoDbFactory();
-        IFactory<AmazonDynamoDB> dbContextFactory = new InMemoryDynamoDbFactory();
-        return dbContextFactory;
-    }
 }

@@ -7,8 +7,9 @@ import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded;
 // maven install
 // http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html
 
-// old verison maven install
+// maven install more info
 // http://stackoverflow.com/questions/26901613/easier-dynamodb-local-testing
+
 // bash install
 // https://gist.github.com/debnath/9ac1e1548a4cc7c6041d4ed744e3a5dd
 
@@ -22,6 +23,7 @@ public class InMemoryDynamoDbFactory implements IFactory<AmazonDynamoDB> {
      */
     @Override
     public AmazonDynamoDB create() {
+        System.setProperty("sqlite4java.library.path", "target/dependencies");
         AmazonDynamoDB amazonDynamoDB = DynamoDBEmbedded.create().amazonDynamoDB();
         return amazonDynamoDB;
     }

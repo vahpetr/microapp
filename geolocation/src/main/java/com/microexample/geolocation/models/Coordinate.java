@@ -1,19 +1,19 @@
 package com.microexample.geolocation.models;
 
-import javax.validation.constraints.Min;
+import com.microexample.geolocation.models.dto.CoordinateDto;
 
-import org.hibernate.validator.constraints.Range;
-import org.springframework.validation.annotation.Validated;
-
-@Validated
 public class Coordinate {
 
-    @Min(1)
+    public Coordinate(CoordinateDto dto) {
+        deviceId = dto.deviceId;
+        latitude = dto.latitude;
+        longitude = dto.longitude;
+        timestamp = System.currentTimeMillis();
+    }
+
     public int deviceId;
-
-    @Range(min = -90, max = 90)
     public float latitude;
-
-    @Range(min = -180, max = 180)
     public float longitude;
+
+    public long timestamp;
 }
