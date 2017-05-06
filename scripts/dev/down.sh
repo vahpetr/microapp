@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# not stop script execution if error
+
 echo "Down begin"
 
 echo "Down app"

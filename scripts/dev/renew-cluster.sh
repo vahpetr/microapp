@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Down and up cluster
+# down and up cluster
+
+# not stop script execution if error
 
 echo "Renew cluster begin"
 

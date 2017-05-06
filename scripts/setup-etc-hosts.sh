@@ -3,7 +3,7 @@
 # copy from https://gist.github.com/irazasyed/a7b0a079e7727a4315b9
 
 # how use it
-# manage-etc-hosts.sh function:addhost|removehost $HOSTNAME $IP
+# setup-etc-hosts.sh function:addhost|removehost $HOSTNAME $IP
 
 ETC_HOSTS=/etc/hosts
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# not stop script execution if error
+
 echo "Down claster begin"
 
 # constants
@@ -22,7 +24,7 @@ docker rm registry -f
 
 # save host forever
 # echo "Clean host"
-# sh scripts/manage-etc-hosts.sh removehost $REGISTRY $SWARM_MASTER_IP
+# sh scripts/setup-etc-hosts.sh removehost $REGISTRY $SWARM_MASTER_IP
 
 echo "Swarm registry removed"
 

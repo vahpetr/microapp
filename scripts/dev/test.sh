@@ -1,10 +1,9 @@
 #!/bin/bash
 
-EXEC_DIR=$PWD
+# stop if error
+set -e
 
 echo "Test begin"
-
-cd $EXEC_DIR
 
 echo "Resolve dependencies"
 mvn dependency:resolve
@@ -14,8 +13,5 @@ echo "Verify"
 mvn verify
 
 # add other tests here
-
-# back to script directory
-cd -
 
 echo "Test end"

@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Stop, rebuild and run app
+# stop, rebuild and run app
+
+# not stop script execution if error
 
 echo "Renew app begin"
 

@@ -2,6 +2,8 @@
 
 # remove app, cluster and run again
 
+# not stop script execution if error
+
 echo "Run begin"
 
 echo "Run down"
