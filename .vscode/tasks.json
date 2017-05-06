@@ -69,6 +69,12 @@
                 ]
             },
             {
+                "taskName": "setup-amazon-env",
+                "args": [
+                    "${workspaceRoot}/scripts/setup-amazon-env.sh"
+                ]
+            },
+            {
                 "taskName": "test",
                 "args": [
                     "${workspaceRoot}/scripts/dev/test.sh"

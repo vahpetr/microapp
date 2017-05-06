@@ -29,3 +29,4 @@ temp
 .settings
 classpath.txt
 test-classpath.txt
+*.env
