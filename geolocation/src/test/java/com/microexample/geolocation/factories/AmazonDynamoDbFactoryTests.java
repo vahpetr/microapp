@@ -16,80 +16,66 @@ package com.microexample.geolocation.factories;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.*;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.model.*;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
-import com.amazonaws.services.dynamodbv2.util.TableUtils.TableNeverTransitionedToStateException;
+import com.microexample.geolocation.TestUtilites;
 
 public class AmazonDynamoDbFactoryTests {
 
-
     @Test(timeout = 1000 * 60)
     public void createTableTest() {
-        String tableName = "Movies";
-        AmazonDynamoDB ddb = null;
-        try {
-            ddb = new AmazonDynamoDbFactory().create();
+        AmazonDynamoDB _dbContext = null;
 
+        try {
+            /*
+            * The ProfileCredentialsProvider will return your [default]
+            * credential profile by reading from the credentials file located at
+            * (~/.aws/credentials).
+            */
+            AWSCredentials awsCredentials = null;
+            try {
+                awsCredentials = new ProfileCredentialsProvider().getCredentials();
+            } catch (Exception e) {
+                throw new AmazonClientException("Cannot load the credentials from the credential profiles file. "
+                        + "Please make sure that your credentials file is at the correct "
+                        + "location (~/.aws/credentials), and is in valid format.", e);
+            }
+
+            AWSStaticCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(awsCredentials);
+            _dbContext = new AmazonDynamoDbFactory(credentialsProvider).create();
+
+            String tableName = "Tests";
             DeleteTableRequest deleteTableRequest = new DeleteTableRequest(tableName);
-            boolean deleting = TableUtils.deleteTableIfExists(ddb, deleteTableRequest);
+            boolean deleting = TableUtils.deleteTableIfExists(_dbContext, deleteTableRequest);
+
+            // TODO rewrite test
 
             if(deleting) return;
 
-            String hashKeyName = "film_id";
-            CreateTableResult res = createTable(ddb, tableName, hashKeyName);
+            String hashKeyName = "testId";
+            CreateTableResult result = TestUtilites.createTable(_dbContext, tableName, hashKeyName);
 
-            TableDescription tableDesc = res.getTableDescription();
+            TableDescription tableDesc = result.getTableDescription();
             assertEquals(tableName, tableDesc.getTableName());
             assertEquals("[{AttributeName: " + hashKeyName + ",KeyType: HASH}]", tableDesc.getKeySchema().toString());
             assertEquals("[{AttributeName: " + hashKeyName + ",AttributeType: S}]",
                     tableDesc.getAttributeDefinitions().toString());
             assertEquals(Long.valueOf(1L), tableDesc.getProvisionedThroughput().getReadCapacityUnits());
             assertEquals(Long.valueOf(1L), tableDesc.getProvisionedThroughput().getWriteCapacityUnits());
-            assertEquals("ACTIVE", tableDesc.getTableStatus());
-            assertEquals("arn:aws:dynamodb:ddblocal:000000000000:table/Movies", tableDesc.getTableArn());
-
-            ListTablesResult tables = ddb.listTables();
-            assertEquals(1, tables.getTableNames().size());
-
             try {
-                TableUtils.waitUntilExists(ddb, tableName);
-            } catch (InterruptedException ex) {
-                Assert.fail(ex.getMessage());
-            } catch (TableNeverTransitionedToStateException ex) {
+                TableUtils.waitUntilExists(_dbContext, tableName);
+            } catch (Exception ex) {
                 Assert.fail(ex.getMessage());
             }
         } finally {
-            ddb.shutdown();
+            _dbContext.shutdown();
         }
-    }
-
-    private static CreateTableResult createTable(AmazonDynamoDB ddb, String tableName, String hashKeyName) {
-        List<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
-        attributeDefinitions.add(new AttributeDefinition(hashKeyName, ScalarAttributeType.S));
-
-        List<KeySchemaElement> ks = new ArrayList<KeySchemaElement>();
-        ks.add(new KeySchemaElement(hashKeyName, KeyType.HASH));
-
-        ProvisionedThroughput provisionedthroughput = new ProvisionedThroughput(1L, 1L);
-
-        CreateTableRequest request = new CreateTableRequest().withTableName(tableName)
-                .withAttributeDefinitions(attributeDefinitions).withKeySchema(ks)
-                .withProvisionedThroughput(provisionedthroughput);
-
-        CreateTableResult result = null;
-
-        try {
-            result = ddb.createTable(request);
-        } catch (final ResourceInUseException ex) {
-            // table exsist, is noraml
-        }
-
-        return result;
     }
 }

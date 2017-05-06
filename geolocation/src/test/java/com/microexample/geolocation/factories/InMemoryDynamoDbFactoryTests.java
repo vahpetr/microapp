@@ -16,23 +16,24 @@ package com.microexample.geolocation.factories;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.model.*;
+import com.microexample.geolocation.TestUtilites;
 
 public class InMemoryDynamoDbFactoryTests {
 
     @Test
     public void createTableTest() {
-        AmazonDynamoDB ddb = new InMemoryDynamoDbFactory().create();
+        AmazonDynamoDB _dbContext = null;
+
         try {
-            String tableName = "Movies";
-            String hashKeyName = "film_id";
-            CreateTableResult res = createTable(ddb, tableName, hashKeyName);
+            _dbContext = new InMemoryDynamoDbFactory().create();
+
+            String tableName = "Tests";
+            String hashKeyName = "testId";
+            CreateTableResult res = TestUtilites.createTable(_dbContext, tableName, hashKeyName);
 
             TableDescription tableDesc = res.getTableDescription();
             assertEquals(tableName, tableDesc.getTableName());
@@ -41,29 +42,12 @@ public class InMemoryDynamoDbFactoryTests {
                     tableDesc.getAttributeDefinitions().toString());
             assertEquals(Long.valueOf(1L), tableDesc.getProvisionedThroughput().getReadCapacityUnits());
             assertEquals(Long.valueOf(1L), tableDesc.getProvisionedThroughput().getWriteCapacityUnits());
-            assertEquals("ACTIVE", tableDesc.getTableStatus());
-            assertEquals("arn:aws:dynamodb:ddblocal:000000000000:table/Movies", tableDesc.getTableArn());
+            assertEquals("arn:aws:dynamodb:ddblocal:000000000000:table/Tests", tableDesc.getTableArn());
 
-            ListTablesResult tables = ddb.listTables();
+            ListTablesResult tables = _dbContext.listTables();
             assertEquals(1, tables.getTableNames().size());
         } finally {
-            ddb.shutdown();
+            _dbContext.shutdown();
         }
-    }
-
-    private static CreateTableResult createTable(AmazonDynamoDB ddb, String tableName, String hashKeyName) {
-        List<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
-        attributeDefinitions.add(new AttributeDefinition(hashKeyName, ScalarAttributeType.S));
-
-        List<KeySchemaElement> ks = new ArrayList<KeySchemaElement>();
-        ks.add(new KeySchemaElement(hashKeyName, KeyType.HASH));
-
-        ProvisionedThroughput provisionedthroughput = new ProvisionedThroughput(1L, 1L);
-
-        CreateTableRequest request = new CreateTableRequest().withTableName(tableName)
-                .withAttributeDefinitions(attributeDefinitions).withKeySchema(ks)
-                .withProvisionedThroughput(provisionedthroughput);
-
-        return ddb.createTable(request);
     }
 }
