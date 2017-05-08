@@ -94,6 +94,63 @@
                     "${workspaceRoot}/scripts/dind/up.sh"
                 ]
             },
+            // compose
+            {
+                "taskName": "compose-build",
+                "args": [
+                    "${workspaceRoot}/scripts/compose/build.sh"
+                ],
+                "isBuildCommand": true
+            },
+            {
+                "taskName": "compose-deploy",
+                "args": [
+                    "${workspaceRoot}/scripts/compose/deploy.sh"
+                ]
+            },
+            {
+                "taskName": "compose-down-app",
+                "args": [
+                    "${workspaceRoot}/scripts/compose/down-app.sh"
+                ]
+            },
+            {
+                "taskName": "compose-down",
+                "args": [
+                    "${workspaceRoot}/scripts/compose/down.sh"
+                ]
+            },
+            {
+                "taskName": "compose-renew-app",
+                "args": [
+                    "${workspaceRoot}/scripts/compose/renew-app.sh"
+                ]
+            },
+            {
+                "taskName": "compose-run",
+                "args": [
+                    "${workspaceRoot}/scripts/compose/run.sh"
+                ]
+            },
+            {
+                "taskName": "compose-test",
+                "args": [
+                    "${workspaceRoot}/scripts/compose/test.sh"
+                ],
+                "isTestCommand": true
+            },
+            {
+                "taskName": "compose-up-app",
+                "args": [
+                    "${workspaceRoot}/scripts/compose/up-app.sh"
+                ]
+            },
+            {
+                "taskName": "compose-up",
+                "args": [
+                    "${workspaceRoot}/scripts/compose/up.sh"
+                ]
+            },
             // local
             {
                 "taskName": "local-run-geolocation",
