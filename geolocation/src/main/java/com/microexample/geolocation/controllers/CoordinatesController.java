@@ -21,6 +21,7 @@ public class CoordinatesController {
         _coordinatesService = coordinatesService;
     }
 
+    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public @ResponseBody void post(@Valid @RequestBody CoordinateDto coordinate) {

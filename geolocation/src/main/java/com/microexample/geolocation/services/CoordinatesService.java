@@ -13,6 +13,7 @@ import com.microexample.geolocation.models.dto.*;
 @Service
 public class CoordinatesService implements ICoordinatesService {
 
+    // TODO in production this value must be between 128-4096 selected by experience
     private final int _multiplexing = 10;
     private final List<Coordinate> _coordinates = new ArrayList<>();
     private final ICoordinatesRepository _repository;

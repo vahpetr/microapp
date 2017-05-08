@@ -15,7 +15,7 @@ public class HomeController {
         try {
             hostname = InetAddress.getLocalHost().getHostName();
         } catch (Exception ex) {
-            hostname =  "Unknown";
+            hostname =  "unknown";
         }
         return "geolocation: " + hostname;
     }
