@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.microexample.geolocation.contracts.ICoordinatesService;
-import com.microexample.geolocation.models.dto.CoordinateDto;;
+import com.microexample.geolocation.models.dto.CoordinateDto;
 
 @Controller
 @RequestMapping("/coordinates")
