@@ -1,6 +1,6 @@
 # microapp
 
-This example project - cloud-based microservices scalable app.
+This example project - cloud-based microservices scalable app, without ssl.
 
 Configured development environment only for osx.
 
@@ -12,25 +12,70 @@ Used technologies:
 * Container - [Docker](https://www.docker.com/)
 * Load Balancers:
 
-  * Internal - [Docker Swarm](https://docs.docker.com/engine/swarm)
+  * Native(internal) [Docker Swarm](https://docs.docker.com/engine/swarm) load balancer
 
 * Backend - [Java Spring](https://spring.io/)
 * Database - [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)
 
 ## Configuration
 
-1. Add `regisry.local:5000` in insecure registry on docker config
-1. Setup permissions `sh scripts/setup-permissions.sh`
+1. Install docker **edge** [CE](https://store.docker.com/editions/community/docker-ce-desktop-mac?tab=description) or [AWS](https://docs.docker.com/docker-for-aws/). Recommend CE, AWS not tested
+1. Setup permissions
+    ```bash
+    sh scripts/setup-permissions.sh
+    ```
 1. Register for the [Amazon](https://console.aws.amazon.com/ec2/v2/home)
 1. Create individual [IAM users](https://console.aws.amazon.com/iam/)
-1. Set local [credentials](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)  profile `aws configure`
-1. Setup amazon env `sh scripts/setup-amazon-env.sh`
+1. Set local [credentials](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) profile
+    ```bash
+    aws configure
+    ```
+1. Setup amazon env
+    ```bash
+    sh scripts/setup-amazon-env.sh
+    ```
 
 ## Launch
 
 ### In vscode
 
-`F1` -> print `tasks` -> `Enter` -> print `run` -> `Enter`
+#### In docker compose mode
+
+`F1` -> print `tasks` -> `Enter` -> print `compose-run` -> `Enter`
+
+or
+
+```bash
+sh scripts/compose/run.sh
+```
+
+#### In simple docker swarm mode
+
+```bash
+eval "$(docker-machine env -u)"
+docker swarm init
+docker stack deploy -c docker-stack.yml -c docker-stack.visualizer.yml microapp
+open http://"$(docker info --format "{{.Swarm.NodeAddr}}")":8001
+```
+
+#### In virualbox docker swarm mode
+
+`F1` -> print `tasks` -> `Enter` -> print `vbox-run` -> `Enter`
+
+or
+
+```bash
+sh scripts/vbox/run.sh
+```
+
+![Native swarm network map](images/swarm-diagram.png)
+
+#### In docker in docker mode
+
+This mode very baggy, version for mac can not resolve dns or not listener inner ip periodically. After sleep(pc)/recreate network, need restart docker. **Not use this**.
+
+1. Add `regisry.local:5000` in insecure registry on docker config
+1. `F1` -> print `tasks` -> `Enter` -> print `dind-run` -> `Enter`
 
 or
 
@@ -46,6 +91,12 @@ You can scale the stack [dynamically](https://docs.docker.com/engine/reference/c
 docker service scale microapp_geolocation=6
 ```
 
+or [update](https://docs.docker.com/engine/reference/commandline/service_update) `docker-stack.yml` and
+
+```bash
+docker service update microapp_geolocation
+```
+
 ## Develpment
 
 ### How it use in vscode
@@ -54,7 +105,7 @@ docker service scale microapp_geolocation=6
 * Test project - `cmd+shoft+t`
 * Task list - `F1` -> print `tasks` -> `Enter`
 * Open terminal - `ctrl+~`
-* Run geolocation service without docker - `F1` -> print `tasks` -> `Enter` -> print `run-geolocation` -> `Enter`
+* Run geolocation service without docker - `F1` -> print `tasks` -> `Enter` -> print `local-run-geolocation` -> `Enter`
 
 I did not find a simple way to run one test, but you can run custom test manualy. Example:
 
@@ -79,6 +130,7 @@ mvn -Dtest=com.microexample.geolocation.GeolocationApplicationTests#contextLoads
 * [Swarm](https://docs.docker.com/engine/swarm)
 * [Configuration external load balancer](https://docs.docker.com/engine/swarm/ingress/#configure-an-external-load-balancer)
 * [Solving the routing mess for services using Docker](https://medium.com/@lherrera/solving-the-routing-mess-for-services-in-docker-73492c37b335)
+* [Creating a private docker registry](http://www.macadamian.com/2017/02/07/creating-a-private-docker-registry/)
 
 ### [Spring](https://spring.io/)
 
