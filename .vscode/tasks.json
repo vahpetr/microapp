@@ -13,102 +13,111 @@
         "isShellCommand": true,
         "suppressTaskName": true,
         "tasks": [
+            // dind
             {
-                "taskName": "build",
+                "taskName": "dind-build",
                 "args": [
-                    "${workspaceRoot}/scripts/dev/build.sh"
+                    "${workspaceRoot}/scripts/dind/build.sh"
                 ],
                 "isBuildCommand": true
             },
             {
-                "taskName": "deploy",
+                "taskName": "dind-deploy",
                 "args": [
-                    "${workspaceRoot}/scripts/dev/deploy.sh"
+                    "${workspaceRoot}/scripts/dind/deploy.sh"
                 ]
             },
             {
-                "taskName": "down-app",
+                "taskName": "dind-down-app",
                 "args": [
-                    "${workspaceRoot}/scripts/dev/down-app.sh"
+                    "${workspaceRoot}/scripts/dind/down-app.sh"
                 ]
             },
             {
-                "taskName": "down-cluster",
+                "taskName": "dind-down-cluster",
                 "args": [
-                    "${workspaceRoot}/scripts/dev/down-cluster.sh"
+                    "${workspaceRoot}/scripts/dind/down-cluster.sh"
                 ]
             },
             {
-                "taskName": "down",
+                "taskName": "dind-down",
                 "args": [
-                    "${workspaceRoot}/scripts/dev/down.sh"
+                    "${workspaceRoot}/scripts/dind/down.sh"
                 ]
             },
             {
-                "taskName": "publish",
+                "taskName": "dind-publish",
                 "args": [
-                    "${workspaceRoot}/scripts/dev/publish.sh"
+                    "${workspaceRoot}/scripts/dind/publish.sh"
                 ]
             },
             {
-                "taskName": "renew-app",
+                "taskName": "dind-renew-app",
                 "args": [
-                    "${workspaceRoot}/scripts/dev/renew-app.sh"
+                    "${workspaceRoot}/scripts/dind/renew-app.sh"
                 ]
             },
             {
-                "taskName": "renew-cluster",
+                "taskName": "dind-renew-cluster",
                 "args": [
-                    "${workspaceRoot}/scripts/dev/renew-cluster.sh"
+                    "${workspaceRoot}/scripts/dind/renew-cluster.sh"
                 ]
             },
             {
-                "taskName": "run",
+                "taskName": "dind-run",
                 "args": [
-                    "${workspaceRoot}/scripts/dev/run.sh"
+                    "${workspaceRoot}/scripts/dind/run.sh"
                 ]
             },
             {
-                "taskName": "setup-amazon-env",
+                "taskName": "dind-test",
+                "args": [
+                    "${workspaceRoot}/scripts/dind/test.sh"
+                ],
+                "isTestCommand": true
+            },
+            {
+                "taskName": "dind-up-app",
+                "args": [
+                    "${workspaceRoot}/scripts/dind/up-app.sh"
+                ]
+            },
+            {
+                "taskName": "dind-up-cluster",
+                "args": [
+                    "${workspaceRoot}/scripts/dind/up-cluster.sh"
+                ]
+            },
+            {
+                "taskName": "dind-up",
+                "args": [
+                    "${workspaceRoot}/scripts/dind/up.sh"
+                ]
+            },
+            // local
+            {
+                "taskName": "local-run-geolocation",
+                "args": [
+                    "cd geolocation && mvn spring-boot:run -Dspring.profiles.active=dev"
+                ]
+            },
+            {
+                "taskName": "local-run-dynamodb",
+                "args": [
+                    "mvn test -Prun-dynamodb"
+                ]
+            },
+            // other
+            {
+                "taskName": "other-amazon-env",
                 "args": [
                     "${workspaceRoot}/scripts/setup-amazon-env.sh"
                 ]
             },
             {
-                "taskName": "test",
+                "taskName": "other-setup-permissions",
                 "args": [
-                    "${workspaceRoot}/scripts/dev/test.sh"
-                ],
-                "isTestCommand": true
-            },
-            {
-                "taskName": "up-app",
-                "args": [
-                    "${workspaceRoot}/scripts/dev/up-app.sh"
-                ]
-            },
-            {
-                "taskName": "up-cluster",
-                "args": [
-                    "${workspaceRoot}/scripts/dev/up-cluster.sh"
-                ]
-            },
-            {
-                "taskName": "up",
-                "args": [
-                    "${workspaceRoot}/scripts/dev/up.sh"
-                ]
-            },
-            {
-                "taskName": "run-geolocation",
-                "args": [
-                    "cd geolocation && mvn spring-boot:run"
-                ]
-            },
-            {
-                "taskName": "run-dynamodb",
-                "args": [
-                    "mvn test -Prun-dynamodb"
+                    "${workspaceRoot}/scripts/setup-permissions.sh"
                 ]
             }
         ]

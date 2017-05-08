@@ -6,9 +6,9 @@ set -e
 echo "Up begin"
 
 echo "Up cluster"
-sh scripts/dev/up-cluster.sh
+sh scripts/dind/up-cluster.sh
 
 echo "Up app"
-sh scripts/dev/up-app.sh
+sh scripts/dind/up-app.sh
 
 echo "Up end"

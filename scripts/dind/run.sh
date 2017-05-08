@@ -7,9 +7,9 @@
 echo "Run begin"
 
 echo "Run down"
-sh scripts/dev/down.sh
+sh scripts/dind/down.sh
 
 echo "Run up"
-sh scripts/dev/up.sh
+sh scripts/dind/up.sh
 
 echo "Run end"

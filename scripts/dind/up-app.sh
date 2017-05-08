@@ -6,15 +6,15 @@ set -e
 echo "Up app begin"
 
 echo "Up app test"
-sh scripts/dev/test.sh
+sh scripts/dind/test.sh
 
 echo "Up app build"
-sh scripts/dev/build.sh
+sh scripts/dind/build.sh
 
 echo "Up app publish"
-sh scripts/dev/publish.sh
+sh scripts/dind/publish.sh
 
 echo "Up app deploy"
-sh scripts/dev/deploy.sh
+sh scripts/dind/deploy.sh
 
 echo "Up app end"

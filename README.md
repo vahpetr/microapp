@@ -35,7 +35,7 @@ Used technologies:
 or
 
 ```bash
-sh scripts/dev/run.sh
+sh scripts/dind/run.sh
 ```
 
 ## Scale
@@ -78,7 +78,7 @@ mvn -Dtest=com.microexample.geolocation.GeolocationApplicationTests#contextLoads
 * [Docs](https://docs.docker.com)
 * [Swarm](https://docs.docker.com/engine/swarm)
 * [Configuration external load balancer](https://docs.docker.com/engine/swarm/ingress/#configure-an-external-load-balancer)
-
+* [Solving the routing mess for services using Docker](https://medium.com/@lherrera/solving-the-routing-mess-for-services-in-docker-73492c37b335)
 
 ### [Spring](https://spring.io/)
 

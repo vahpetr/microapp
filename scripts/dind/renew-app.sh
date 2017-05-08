@@ -7,9 +7,9 @@
 echo "Renew app begin"
 
 echo "Renew app down app"
-sh scripts/dev/down-app.sh
+sh scripts/dind/down-app.sh
 
 echo "Renew app up app"
-sh scripts/dev/up-app.sh
+sh scripts/dind/up-app.sh
 
 echo "Renew app end"
