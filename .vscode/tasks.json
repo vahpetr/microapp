@@ -94,6 +94,87 @@
                     "${workspaceRoot}/scripts/dind/up.sh"
                 ]
             },
+            // vbox
+            {
+                "taskName": "vbox-build",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/build.sh"
+                ],
+                "isBuildCommand": true
+            },
+            {
+                "taskName": "vbox-deploy",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/deploy.sh"
+                ]
+            },
+            {
+                "taskName": "vbox-down-app",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/down-app.sh"
+                ]
+            },
+            {
+                "taskName": "vbox-down-cluster",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/down-cluster.sh"
+                ]
+            },
+            {
+                "taskName": "vbox-down",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/down.sh"
+                ]
+            },
+            {
+                "taskName": "vbox-publish",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/publish.sh"
+                ]
+            },
+            {
+                "taskName": "vbox-renew-app",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/renew-app.sh"
+                ]
+            },
+            {
+                "taskName": "vbox-renew-cluster",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/renew-cluster.sh"
+                ]
+            },
+            {
+                "taskName": "vbox-run",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/run.sh"
+                ]
+            },
+            {
+                "taskName": "vbox-test",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/test.sh"
+                ],
+                "isTestCommand": true
+            },
+            {
+                "taskName": "vbox-up-app",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/up-app.sh"
+                ]
+            },
+            {
+                "taskName": "vbox-up-cluster",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/up-cluster.sh"
+                ]
+            },
+            {
+                "taskName": "vbox-up",
+                "args": [
+                    "${workspaceRoot}/scripts/vbox/up.sh"
+                ]
+            },
             // compose
             {
                 "taskName": "compose-build",
