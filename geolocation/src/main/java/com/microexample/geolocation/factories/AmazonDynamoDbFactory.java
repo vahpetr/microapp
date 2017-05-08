@@ -11,6 +11,10 @@ import com.microexample.geolocation.contracts.IFactory;
 // http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html
 // http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html
 
+// TODO move to async
+
+// http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/creating-clients.html
+
 public class AmazonDynamoDbFactory implements IFactory<AmazonDynamoDB> {
 
     private final AWSCredentialsProvider _awsCredentialsProvider;
