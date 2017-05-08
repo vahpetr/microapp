@@ -28,10 +28,6 @@ docker rm registry -f
 
 echo "Swarm registry removed"
 
-echo "Removing swarm visualizer"
-docker rm visualizer -f
-echo "Swarm visualizer removed"
-
 echo "Removing swarm master"
 docker swarm leave -f
 echo "Swarm master removed"
