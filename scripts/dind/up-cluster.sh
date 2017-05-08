@@ -5,6 +5,8 @@ set -e
 
 echo "Up cluster begin"
 
+eval $(docker-machine env -u)
+
 # constants
 SWARM_MASTER_PUBLIC_IP=192.168.65.2
 WORKER_COUNT=2

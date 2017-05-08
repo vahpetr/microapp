@@ -26,11 +26,8 @@ docker rm registry -f
 # echo "Clean host"
 # sh scripts/setup-etc-hosts.sh removehost $REGISTRY $SWARM_MASTER_IP
 
-echo "Swarm registry removed"
-
 echo "Removing swarm master"
 docker swarm leave -f
-echo "Swarm master removed"
 
 echo "Running system prune"
 docker system prune -f

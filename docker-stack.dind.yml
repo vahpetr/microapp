@@ -1,0 +1,9 @@
+# https://docs.docker.com/compose/compose-file/
+
+version: "3.2"
+
+services:
+
+    geolocation:
+        image: registry.local:5000/geolocation
+

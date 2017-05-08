@@ -1,42 +1,44 @@
 # https://docs.docker.com/compose/compose-file/
 
-version: "3"
+version: "3.2"
+
+networks:
+    geolocation-network:
 
 services:
 
     geolocation:
-        image: registry.local:5000/geolocation
+        image: vahpetr/geolocation
         ports:
-            - 80:8080
+            - "8080:8080"
         env_file:
             - amazon.env
+        networks:
+            - geolocation-network
         deploy:
             replicas: 3
             update_config:
                 parallelism: 2
-                delay: 10s
+                failure_action: rollback
             placement:
                 constraints:
-                    - node.role == worker
+                    - 'node.role == worker'
             restart_policy:
                 condition: on-failure
                 delay: 5s
                 max_attempts: 3
-                window: 60s
+                window: 120s
 
     visualizer:
         image: dockersamples/visualizer:stable
         ports:
-            - 8080:8080
+            - "8001:8080"
+        stop_grace_period: 1m30s
         volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
+            - "/var/run/docker.sock:/var/run/docker.sock"
         deploy:
-            mode: global
+            update_config:
+                failure_action: rollback
             placement:
                 constraints:
-                    - node.role == manager
-            restart_policy:
-                condition: on-failure
-                delay: 5s
-                max_attempts: 3
-                window: 60s
+                - 'node.role == manager'
