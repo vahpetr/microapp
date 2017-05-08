@@ -7,9 +7,6 @@ REGISTRY_WITH_PORT=registry.local:5000
 
 echo "Publish begin"
 
-echo "Building images"
-docker-compose --file docker-compose.yml --project-name microapp --verbose build
-
 echo "Publishing images"
 
 echo "Publishing geolocation"

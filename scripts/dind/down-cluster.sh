@@ -4,6 +4,8 @@
 
 echo "Down claster begin"
 
+eval "$(docker-machine env -u)"
+
 # constants
 SWARM_MASTER_IP=192.168.65.2
 WORKER_COUNT=2

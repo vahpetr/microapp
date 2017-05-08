@@ -5,16 +5,9 @@ version: "3.2"
 services:
 
     geolocation:
+        image: vahpetr/geolocation
         build: geolocation
         ports:
             - "8080:8080"
         env_file:
             - amazon.env
-
-    visualizer:
-        image: dockersamples/visualizer:stable
-        ports:
-            - "8001:8080"
-        stop_grace_period: 1m30s
-        volumes:
-            - "/var/run/docker.sock:/var/run/docker.sock"

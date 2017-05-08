@@ -12,6 +12,9 @@ mvn dependency:resolve
 echo "Verify"
 mvn verify
 
+echo "Validate docker-compose"
+docker-compose config
+
 # add other tests here
 
 echo "Test end"
