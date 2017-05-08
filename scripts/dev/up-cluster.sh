@@ -6,28 +6,29 @@ set -e
 echo "Up cluster begin"
 
 # constants
-PUBLIC_IP=192.168.65.2
-INTERNAL_IP=0.0.0.0
+SWARM_MASTER_PUBLIC_IP=192.168.65.2
 WORKER_COUNT=2
 REGISTRY_NAME=registry.local
 SWARM_MASTER_PORT=2377
 REGISTRY_PORT=5000
 
 echo "Creating swarm master"
-docker swarm init --advertise-addr=$PUBLIC_IP --listen-addr=$INTERNAL_IP:$SWARM_MASTER_PORT
+docker swarm init \
+    --advertise-addr $SWARM_MASTER_PUBLIC_IP \
+    --listen-addr $SWARM_MASTER_PUBLIC_IP:$SWARM_MASTER_PORT
 
 echo "Get swarm token"
 SWARM_TOKEN=$(docker swarm join-token -q worker)
 echo "SWARM_TOKEN=$SWARM_TOKEN"
 
 # echo "Get swarm master IP"
-# PUBLIC_IP=$(docker info --format "{{.Swarm.NodeAddr}}")
-# echo "PUBLIC_IP=$PUBLIC_IP"
+# SWARM_MASTER_PUBLIC_IP=$(docker info --format "{{.Swarm.NodeAddr}}")
+# echo "SWARM_MASTER_PUBLIC_IP=$SWARM_MASTER_PUBLIC_IP"
 
 echo "Start swarm registry"
 
 echo "Setup host"
-sh scripts/setup-etc-hosts.sh addhost $REGISTRY_NAME $PUBLIC_IP
+sh scripts/setup-etc-hosts.sh addhost $REGISTRY_NAME $SWARM_MASTER_PUBLIC_IP
 
 sleep 1
 
@@ -53,7 +54,7 @@ for i in $(seq $WORKER_COUNT); do
   sleep 1.0e-1
 
   echo "Join dind swarm worker-$i to swarm master"
-  docker -H :${i}2375 swarm join --token $SWARM_TOKEN $PUBLIC_IP:$SWARM_MASTER_PORT
+  docker -H :${i}2375 swarm join --token $SWARM_TOKEN $SWARM_MASTER_PUBLIC_IP:$SWARM_MASTER_PORT
 
 done
 
