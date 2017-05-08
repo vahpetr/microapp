@@ -1,0 +1,34 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+
+spring:
+    application:
+        name: geolocation
+    profiles: production
+
+server:
+    port: 8080
+    max-http-header-size: 8192
+    tomcat:
+        accept-count: 4096
+        max-connections: 4096
+        max-threads: 4096
+        min-spare-threads: 10
+        max-http-post-size: 8192
+        accesslog:
+            enabled: false
+    mvc:
+        async:
+            request-timeout: 1000
+    ssl:
+        # enable in real production app
+        enabled: false
+    compression:
+        enabled: false
+    metrics:
+        export:
+            enabled: false
+
+management:
+    ssl:
+        # enable in real production app
+        enabled: false
