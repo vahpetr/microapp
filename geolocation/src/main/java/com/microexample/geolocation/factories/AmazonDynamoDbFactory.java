@@ -15,10 +15,20 @@ import com.microexample.geolocation.contracts.IFactory;
 
 // http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/creating-clients.html
 
+/**
+ * Amazond dynamo db factory
+ */
 public class AmazonDynamoDbFactory implements IFactory<AmazonDynamoDB> {
 
+    /**
+     * Amazon credentals provider
+     */
     private final AWSCredentialsProvider _awsCredentialsProvider;
 
+    /**
+     * Amazond dynamo db factory constructor
+     * @param Amazon credentals provider
+     */
     @Autowired
     public AmazonDynamoDbFactory(AWSCredentialsProvider awsCredentialsProvider) {
         _awsCredentialsProvider = awsCredentialsProvider;
@@ -34,6 +44,8 @@ public class AmazonDynamoDbFactory implements IFactory<AmazonDynamoDB> {
     * @see com.amazonaws.auth.BasicAWSCredentials
     * @see com.amazonaws.auth.ProfilesConfigFile
     * @see com.amazonaws.ClientConfiguration
+    *
+    * @param Amazon db context
     */
     @Override
     public AmazonDynamoDB create() {

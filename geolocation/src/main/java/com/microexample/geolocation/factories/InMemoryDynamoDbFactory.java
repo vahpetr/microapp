@@ -17,9 +17,13 @@ import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded;
 // https://github.com/awslabs/aws-dynamodb-examples/blob/master/src/test/java/com/amazonaws/services/dynamodbv2/DynamoDBLocalFixture.java
 // https://github.com/awslabs/aws-dynamodb-examples/blob/master/src/test/java/com/amazonaws/services/dynamodbv2/local/embedded/DynamoDBEmbeddedTest.java
 
+/**
+ * In memody dunamo db factory
+ */
 public class InMemoryDynamoDbFactory implements IFactory<AmazonDynamoDB> {
     /**
      * Create an in-memory and in-process instance of DynamoDB Local that skips HTTP
+     * @param Amazon db context
      */
     @Override
     public AmazonDynamoDB create() {

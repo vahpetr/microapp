@@ -21,6 +21,9 @@ public class GeolocationApplication {
 
     // usealy api use "request" Scope
 
+    /**
+     * Coordinates service resolver
+     */
     @Bean(destroyMethod = "dispose")
     @Scope("singleton")
     public ICoordinatesService coordinatesService() {
@@ -28,6 +31,9 @@ public class GeolocationApplication {
         return new CoordinatesService(coordinatesRepository);
     }
 
+    /**
+     * Coordinates repository resolver
+     */
     @Bean
     @Scope("singleton")
     public ICoordinatesRepository coordinatesRepository() {
@@ -35,6 +41,9 @@ public class GeolocationApplication {
         return new CoordinatesRepository(dbContext);
     }
 
+    /**
+     * Amazon db context resolver
+     */
     @Bean(destroyMethod = "shutdown")
     @Scope("singleton")
     public AmazonDynamoDB amazonDynamoDB() {
@@ -43,6 +52,9 @@ public class GeolocationApplication {
         return dbContext;
     }
 
+    /**
+     * Amazon dynamo db factory resolver
+     */
     @Bean
     @Scope("singleton")
     public IFactory<AmazonDynamoDB> dynamoDbFactory() {
@@ -51,6 +63,9 @@ public class GeolocationApplication {
         return dbContextFactory;
     }
 
+    /**
+     * Amazon credentials provider resolver
+     */
     @Bean
     @Scope("singleton")
     public AWSCredentialsProvider AWSCredentialsProvider() {

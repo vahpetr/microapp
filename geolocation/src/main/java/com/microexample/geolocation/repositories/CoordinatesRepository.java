@@ -29,18 +29,36 @@ import com.microexample.geolocation.models.*;
 // examples
 // https://github.com/gkatzioura/egkatzioura.wordpress.com/blob/master/DynamoDBTutorial/src/main/java/com/gkatzioura/dynamodb/user/UserRepository.java
 
+/**
+ * Coordinates repository
+ */
 @Repository
 public class CoordinatesRepository implements ICoordinatesRepository {
 
+    /**
+     * Amazon dynamo db table name
+     */
     private final String tableName = "Coordinates";
+
+    /**
+     * Amazon dynamo db context
+     */
     private final AmazonDynamoDB _dbContext;
 
+    /**
+     * Coordinates repository constructor
+     * @param Amazon dynamo db context
+     */
     @Autowired
     public CoordinatesRepository(AmazonDynamoDB dbContext) {
         _dbContext = dbContext;
         createTableIfNotExists(_dbContext, tableName);
     }
 
+    /**
+     * Save coordinate
+     * @param Coordinates array
+     */
     public void save(List<Coordinate> coordinates) {
         List<WriteRequest> writeRequests = new ArrayList<>();
         Map<String, List<WriteRequest>> requestItems = new HashMap<String, List<WriteRequest>>() {
@@ -71,6 +89,11 @@ public class CoordinatesRepository implements ICoordinatesRepository {
 
     // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html#DDB-CreateTable-request-AttributeDefinitions
 
+    /**
+     * Create Amazon dynamo db table if table not exists
+     * @param Amazon dynamo db context
+     * @param Amazon dynamo db table name
+     */
     private void createTableIfNotExists(AmazonDynamoDB dbContext, String tableName) {
         try {
             ProvisionedThroughput provisionedThroughput = new ProvisionedThroughput(10L, 10000L);
