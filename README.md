@@ -131,7 +131,7 @@ This mode very baggy, version for mac can not resolve dns or not listener inner 
 
 ![Grafana monitoring](images/grafana-monitoring.png)
 
-### Other methods
+### Other monitoring methods
 
 1. Use [Amazon CloudWatch Logs logging driver](https://docs.docker.com/engine/admin/logging/awslogs/)
 1. Use [Logentries](https://logentries.com/) server + [logentries logging driver](https://docs.docker.com/engine/admin/logging/logentries/)
