@@ -43,7 +43,6 @@ docker-machine ls
 echo "-- Initializing first swarm manager"
 docker-machine ssh manager1 "docker swarm init --listen-addr $(docker-machine ip manager1) --advertise-addr $(docker-machine ip manager1)"
 
-unset MANAGER_TOKEN
 export MANAGER_TOKEN=`docker-machine ssh manager1 "docker swarm join-token manager -q"`
 echo "-- Manager token: $MANAGER_TOKEN"
 
@@ -61,7 +60,6 @@ done
 
 for i in $(seq 1 $MANAGER_COUNT);
 do
-    unset WORKER_TOKEN
     export WORKER_TOKEN=`docker-machine ssh manager$i "docker swarm join-token worker -q"`
     echo "-- Worker token on manager$i: $WORKER_TOKEN"
 
