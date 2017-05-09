@@ -7,10 +7,16 @@ REGISTRY_WITH_PORT=registry.local:5000
 
 echo "Publish begin"
 
-echo "Publishing images"
+echo "Prepare geolocation"
+export NAME=$REGISTRY_WITH_PORT/geolocation
+docker build -t $NAME geolocation
+docker tag $NAME $NAME
+docker push $NAME
 
-echo "Publishing geolocation"
-docker tag microapp_geolocation $REGISTRY_WITH_PORT/geolocation
-docker push $REGISTRY_WITH_PORT/geolocation
+echo "Prepare reverseproxy"
+export NAME=$REGISTRY_WITH_PORT/reverseproxy
+docker build -t $NAME reverseproxy
+docker tag $NAME $NAME
+docker push $NAME
 
 echo "Publish end"
