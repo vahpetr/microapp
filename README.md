@@ -15,6 +15,10 @@ Used technologies:
     1. Nginx(external) [reverse proxy](https://docs.docker.com/engine/swarm/networking/#create-an-overlay-network-in-a-swarm) load balancer on manager nodes
 * Backend - [Java Spring](https://spring.io/)
 * Database - [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)
+* Monitoring:
+    * Container Advisor [google cAdvisor](https://github.com/google/cadvisor)
+    * Time series database [InfluxDB](https://www.influxdata.com/)
+    * Visualization [Grafana](https://github.com/grafana/grafana)
 
 ## Configuration
 
@@ -57,7 +61,7 @@ open http://"$(docker info --format "{{.Swarm.NodeAddr}}")":8001
 
 #### In virualbox docker swarm mode
 
-1. `F1` -> print `tasks` -> `Enter` -> print `vbox-up-cluster` -> `Enter` or
+1. Create cluster. `F1` -> print `tasks` -> `Enter` -> print `vbox-up-cluster` -> `Enter` or
     ```bash
     sh scripts/vbox/up-cluster.sh
     ```
@@ -65,12 +69,20 @@ open http://"$(docker info --format "{{.Swarm.NodeAddr}}")":8001
     ```bash
     sh scripts/setup-etc-hosts.sh addhost geolocation $(docker-machine ip manager1)
     ```
-1. `F1` -> print `tasks` -> `Enter` -> print `vbox-up-app` -> `Enter` or
+1. Run project. `F1` -> print `tasks` -> `Enter` -> print `vbox-up-app` -> `Enter` or
     ```bash
     sh scripts/vbox/run.sh
     ```
-![Native swarm network map](images/swarm.png)
-![Principal work of Raft consensus group](images/raft.gif)
+
+### Network visualization example
+
+Can differ depending on the configuration parameters.
+
+![Native swarm network map](images/swarm-network.png)
+
+Raft work visualization.
+
+![Principal work of Raft consensus group](images/swarm-raft.gif)
 
 #### In docker in docker mode
 
@@ -81,6 +93,30 @@ This mode very baggy, version for mac can not resolve dns or not listener inner 
     ```bash
     sh scripts/dind/run.sh
     ```
+
+## Enable Monitoring
+
+1. Run script after start project influxdb
+    ```bash
+    docker exec `docker ps | grep -i microapp_influxdb | awk '{print $1}'` influx -execute 'CREATE DATABASE cadvisor'
+    ```
+1. Enter in grafana web ui
+    ```bash
+        open http://"$(docker-machine ip manager1)":3000
+    ```
+1. Add database connection
+    ![Grafana data source configuration](images/grafana-data-source-configuration.png)
+1. Add dashboard configuration
+    ![Add dashboard](images/grafana-add-dashboard.png)
+
+### Result
+
+![Grafana monitoring](images/grafana-monitoring.png)
+
+### Other methods
+
+1. Use [Amazon CloudWatch Logs logging driver](https://docs.docker.com/engine/admin/logging/awslogs/)
+1. Use [Logentries](https://logentries.com/) server + [logentries logging driver](https://docs.docker.com/engine/admin/logging/logentries/)
 
 ## Scale
 
@@ -131,6 +167,7 @@ mvn -Dtest=com.microexample.geolocation.GeolocationApplicationTests#contextLoads
 * [Solving the routing mess for services using Docker](https://medium.com/@lherrera/solving-the-routing-mess-for-services-in-docker-73492c37b335)
 * [Use DNS round-robin for a service](https://docs.docker.com/engine/swarm/networking/#use-dns-round-robin-for-a-service)
 * [Creating a private docker registry](http://www.macadamian.com/2017/02/07/creating-a-private-docker-registry/)
+* [Monitoring cAdvisor, InfluxDB & Grafana](https://habrahabr.ru/company/centosadmin/blog/327670/)
 
 ### [Spring](https://spring.io/)
 
