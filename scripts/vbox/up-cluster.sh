@@ -8,11 +8,14 @@ echo "-- Up cluster begin"
 # tolerance and distributions
 # https://docs.docker.com/engine/swarm/admin_guide/#add-manager-is-for-fault-tolerance
 
+DICK_SIZE="5000"
+MEMORY="1024"
+
 # i think optimal starter configuration for test 3+3x3, minimal 2+2x2
 
 MANAGER_COUNT=2
 echo "-- Managers count: $MANAGER_COUNT"
-WORKER_COUNT=2
+WORKER_COUNT=1
 echo "-- Workers count: $WORKER_COUNT"
 
 echo "-- Creating $MANAGER_COUNT manager machines";
@@ -21,8 +24,8 @@ do
     echo "-- Creating manager$i machine";
     docker-machine create \
         --driver virtualbox \
-        --virtualbox-disk-size "2500" \
-        --virtualbox-memory "512" \
+        --virtualbox-disk-size $DICK_SIZE \
+        --virtualbox-memory $MEMORY \
         manager$i;
 
     echo "-- Creating $WORKER_COUNT worker on manager$i";
@@ -31,8 +34,8 @@ do
         echo "-- Creating worker$j on manager$i";
         docker-machine create \
             --driver virtualbox \
-            --virtualbox-disk-size "2500" \
-            --virtualbox-memory "512" \
+            --virtualbox-disk-size $DICK_SIZE \
+            --virtualbox-memory $MEMORY \
             manager$i-worker$j;
     done
 done
