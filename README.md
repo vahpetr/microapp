@@ -24,16 +24,21 @@ Used technologies:
 
 1. Install docker **edge** [CE](https://store.docker.com/editions/community/docker-ce-desktop-mac?tab=description) or [AWS](https://docs.docker.com/docker-for-aws/). Recommend CE, AWS not tested
 1. Setup permissions
+
     ```bash
     sh scripts/setup-permissions.sh
     ```
+
 1. Register for the [Amazon](https://console.aws.amazon.com/ec2/v2/home)
 1. Create individual [IAM users](https://console.aws.amazon.com/iam/)
 1. Set local [credentials](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) profile
+
     ```bash
     aws configure
     ```
+
 1. Setup amazon env
+
     ```bash
     sh scripts/setup-amazon-env.sh
     ```
@@ -62,14 +67,19 @@ open http://"$(docker info --format "{{.Swarm.NodeAddr}}")":8001
 #### In virualbox docker swarm mode
 
 1. Create cluster. `F1` -> print `tasks` -> `Enter` -> print `vbox-up-cluster` -> `Enter` or
+
     ```bash
     sh scripts/vbox/up-cluster.sh
     ```
+
 1. Add `geolocation` to hosts file(for localhost show)
+
     ```bash
     sh scripts/setup-etc-hosts.sh addhost geolocation $(docker-machine ip manager1)
     ```
+
 1. Run project. `F1` -> print `tasks` -> `Enter` -> print `vbox-up-app` -> `Enter` or
+
     ```bash
     sh scripts/vbox/run.sh
     ```
@@ -90,6 +100,7 @@ This mode very baggy, version for mac can not resolve dns or not listener inner 
 
 1. Add `regisry.local:5000` in insecure registry on docker config
 1. `F1` -> print `tasks` -> `Enter` -> print `dind-run` -> `Enter` or
+
     ```bash
     sh scripts/dind/run.sh
     ```
@@ -97,13 +108,17 @@ This mode very baggy, version for mac can not resolve dns or not listener inner 
 ## Enable Monitoring
 
 1. Run script after start project influxdb
+
     ```bash
     docker exec `docker ps | grep -i microapp_influxdb | awk '{print $1}'` influx -execute 'CREATE DATABASE cadvisor'
     ```
+
 1. Enter in grafana web ui
+
     ```bash
         open http://"$(docker-machine ip manager1)":3000
     ```
+
 1. Add database connection
 
     ![Grafana data source configuration](images/grafana-data-source-configuration.png)
