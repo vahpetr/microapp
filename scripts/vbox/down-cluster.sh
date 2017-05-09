@@ -8,6 +8,6 @@ echo "Stop all machines"
 docker-machine stop $(docker-machine ls -q)
 
 echo "Removing all machines"
-docker-machine rm $(docker-machine ls -q)
+docker-machine rm -y $(docker-machine ls -q)
 
 echo "Down cluster end"
