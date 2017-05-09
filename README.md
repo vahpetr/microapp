@@ -105,8 +105,11 @@ This mode very baggy, version for mac can not resolve dns or not listener inner 
         open http://"$(docker-machine ip manager1)":3000
     ```
 1. Add database connection
+
     ![Grafana data source configuration](images/grafana-data-source-configuration.png)
+
 1. Add dashboard configuration
+
     ![Add dashboard](images/grafana-add-dashboard.png)
 
 ### Result
