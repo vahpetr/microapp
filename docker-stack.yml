@@ -2,19 +2,21 @@
 
 version: "3.2"
 
-networks:
-    geolocation-network:
-
 services:
+    reverseproxy:
+        image: vahpetr/reverseproxy
+        ports:
+            - "80:80"
+        networks:
+            - geolocation
 
     geolocation:
         image: vahpetr/geolocation
-        ports:
-            - "8080:8080"
+        # no ports - look only through reverse proxy
         env_file:
             - amazon.env
         networks:
-            - geolocation-network
+            - geolocation
         deploy:
             replicas: 3
             update_config:
@@ -28,3 +30,20 @@ services:
                 delay: 5s
                 max_attempts: 3
                 window: 120s
+
+    visualizer:
+        image: dockersamples/visualizer:stable
+        ports:
+            - "8001:8080"
+        stop_grace_period: 1m30s
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        networks:
+            - geolocation
+        deploy:
+            placement:
+                constraints:
+                    - 'node.role == manager'
+
+networks:
+    geolocation:
