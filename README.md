@@ -166,6 +166,12 @@ I did not find a simple way to run one test, but you can run custom test manualy
 mvn -Dtest=com.microexample.geolocation.GeolocationApplicationTests#contextLoads test
 ```
 
+## TODO list
+
+- [ ] Write geolocation tests
+- [ ] Add a JMeter load-test scenario to create coordinates
+- [ ] Add integration with travis
+
 ## Links
 
 ### [Amazon](https://aws.amazon.com)

@@ -1,1 +1,1 @@
-Add a JMeter scenario to create coordinates
+Add a JMeter load-test scenario to create coordinates
