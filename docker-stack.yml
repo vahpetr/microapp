@@ -9,7 +9,7 @@ services:
             - "80:80"
         networks:
             - geolocation
-        depends_on: # not work https://github.com/docker/compose/issues/4305
+        depends_on: # not work in swarm https://github.com/docker/compose/issues/4305
             - geolocation
         deploy:
             restart_policy:
@@ -36,6 +36,52 @@ services:
                 max_attempts: 3
                 window: 120s
 
+    influxdb:
+        image: influxdb
+        volumes:
+            - influxdb:/var/lib/influxdb
+        environment:
+            PRE_CREATE_DB: "cadvisor" # not work
+        networks:
+            - logging
+        deploy:
+            replicas: 1
+            placement:
+                constraints:
+                - node.role == manager
+
+    grafana:
+        image: grafana/grafana
+        ports:
+            - 0.0.0.0:3000:3000
+        volumes:
+            - grafana:/var/lib/grafana
+        networks:
+            - logging
+        depends_on: # not work in swarm https://github.com/docker/compose/issues/4305
+            - influxdb
+        deploy:
+            replicas: 1
+            placement:
+                constraints:
+                    - node.role == manager
+
+    cadvisor:
+        image: google/cadvisor
+        hostname: '{{.Node.ID}}'
+        command: -logtostderr -docker_only -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxdb:8086
+        volumes:
+            - /:/rootfs:ro
+            - /var/run:/var/run:rw
+            - /sys:/sys:ro
+            - /var/lib/docker/:/var/lib/docker:ro
+        networks:
+            - logging
+        depends_on: # not work in swarm https://github.com/docker/compose/issues/4305
+            - influxdb
+        deploy:
+            mode: global
+
     visualizer:
         image: dockersamples/visualizer:stable
         ports:
@@ -50,5 +96,12 @@ services:
                 constraints:
                     - 'node.role == manager'
 
+volumes:
+    influxdb:
+        driver: local
+    grafana:
+        driver: local
+
 networks:
     geolocation:
+    logging:
