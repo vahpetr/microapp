@@ -8,7 +8,7 @@ echo "Deploy begin"
 eval "$(docker-machine env -u)"
 docker-compose up -d
 
-sleep 1
+sleep 5
 
 open http://localhost:8080
 

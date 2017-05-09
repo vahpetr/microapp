@@ -4,7 +4,7 @@
 
 echo "Down begin"
 
-echo "Down app"
-sh scripts/compose/down-app.sh
+eval "$(docker-machine env -u)"
+docker-compose down
 
 echo "Down end"

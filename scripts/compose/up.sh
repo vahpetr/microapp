@@ -5,7 +5,13 @@ set -e
 
 echo "Up begin"
 
-echo "Up app"
-sh scripts/compose/up-app.sh
+echo "Up app test"
+sh scripts/compose/test.sh
+
+echo "Up app build"
+sh scripts/compose/build.sh
+
+echo "Up app deploy"
+sh scripts/compose/deploy.sh
 
 echo "Up end"

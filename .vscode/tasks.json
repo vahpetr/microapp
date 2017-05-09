@@ -190,21 +190,15 @@
                 ]
             },
             {
-                "taskName": "compose-down-app",
-                "args": [
-                    "${workspaceRoot}/scripts/compose/down-app.sh"
-                ]
-            },
-            {
                 "taskName": "compose-down",
                 "args": [
                     "${workspaceRoot}/scripts/compose/down.sh"
                 ]
             },
             {
-                "taskName": "compose-renew-app",
+                "taskName": "compose-renew",
                 "args": [
-                    "${workspaceRoot}/scripts/compose/renew-app.sh"
+                    "${workspaceRoot}/scripts/compose/renew.sh"
                 ]
             },
             {
@@ -219,12 +213,6 @@
                     "${workspaceRoot}/scripts/compose/test.sh"
                 ],
                 "isTestCommand": true
-            },
-            {
-                "taskName": "compose-up-app",
-                "args": [
-                    "${workspaceRoot}/scripts/compose/up-app.sh"
-                ]
             },
             {
                 "taskName": "compose-up",
