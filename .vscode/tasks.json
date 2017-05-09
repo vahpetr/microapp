@@ -196,12 +196,6 @@
                 ]
             },
             {
-                "taskName": "compose-renew",
-                "args": [
-                    "${workspaceRoot}/scripts/compose/renew.sh"
-                ]
-            },
-            {
                 "taskName": "compose-run",
                 "args": [
                     "${workspaceRoot}/scripts/compose/run.sh"
