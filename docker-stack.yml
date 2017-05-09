@@ -9,6 +9,11 @@ services:
             - "80:80"
         networks:
             - geolocation
+        depends_on: # not work https://github.com/docker/compose/issues/4305
+            - geolocation
+        deploy:
+            restart_policy:
+                condition: any
 
     geolocation:
         image: vahpetr/geolocation
