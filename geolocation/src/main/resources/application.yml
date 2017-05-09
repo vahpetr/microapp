@@ -7,6 +7,7 @@ spring:
 
 server:
     port: 8080
+    contextPath: /
     max-http-header-size: 8192
     tomcat:
         accept-count: 4096

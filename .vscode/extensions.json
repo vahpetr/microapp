@@ -5,6 +5,7 @@
         "donjayamanne.githistory",
         "robertohuertasm.vscode-icons",
         "EditorConfig.EditorConfig",
-        "DavidAnson.vscode-markdownlint"
+        "DavidAnson.vscode-markdownlint",
+        "hangxingliu.vscode-nginx-conf-hint"
     ]
 }
