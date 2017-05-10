@@ -13,6 +13,7 @@ Used technologies:
 * Load Balancers:
     1. Native(internal) [Docker Swarm](https://docs.docker.com/engine/swarm) load balancer
     1. Nginx(external) [reverse proxy](https://docs.docker.com/engine/swarm/networking/#create-an-overlay-network-in-a-swarm) load balancer on manager nodes
+    > You can place reverse proxy on load balance machines ferme([node.labels=loadbalanser](https://docs.docker.com/engine/reference/commandline/service_create/#specify-service-constraints---constraint)) inside docker swarm, or use [cloud load balancer](https://aws.amazon.com/quickstart/architecture/docker-ddc/), or not use at all and use [load balancer on client side](https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance)(in docker swarm mode)
 * Backend - [Java Spring](https://spring.io/)
 * Database - [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)
 * Monitoring:
