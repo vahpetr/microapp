@@ -61,7 +61,7 @@ sh scripts/compose/run.sh
 ```bash
 eval "$(docker-machine env -u)"
 docker swarm init
-docker stack deploy -c docker-stack.yml -c docker-stack.visualizer.yml microapp
+docker stack deploy -c docker-stack.yml microapp
 open http://"$(docker info --format "{{.Swarm.NodeAddr}}")":8001
 ```
 
@@ -132,10 +132,13 @@ This mode very baggy, version for mac can not resolve dns or not listener inner 
 
 ![Grafana monitoring](images/grafana-monitoring.png)
 
-### Other monitoring methods
+## Logging
 
-1. Use [Amazon CloudWatch Logs logging driver](https://docs.docker.com/engine/admin/logging/awslogs/)
-1. Use [Logentries](https://logentries.com/) server + [logentries logging driver](https://docs.docker.com/engine/admin/logging/logentries/)
+To collect logs you can use:
+
+1. Amazon + [CloudWatch Logs logging driver](https://docs.docker.com/engine/admin/logging/awslogs/)
+1. [Logentries](https://logentries.com/) + [logentries logging driver](https://docs.docker.com/engine/admin/logging/logentries/)
+1. [Elastic+kibana](https://gist.github.com/shreyu86/735f2871460a2b068080#file-instructions-md)
 
 ## Scale
 
